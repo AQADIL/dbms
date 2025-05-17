@@ -142,3 +142,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+// SQL Download Functionality
+document.getElementById('downloadSql').addEventListener('click', function() {
+  // Create temporary link
+  const link = document.createElement('a');
+  
+  // Set the SQL file path (change 'database.sql' to your actual filename)
+  link.href = 'akadildb.sql';
+  
+  // Set the download filename
+  link.download = 'akadildb.sql';
+  
+  // Trigger download
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  
+  // Visual feedback
+  const btn = this;
+  btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+  setTimeout(() => {
+    btn.innerHTML = '<i class="fas fa-download"></i> Download SQL';
+  }, 2000);
+});
