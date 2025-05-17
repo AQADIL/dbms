@@ -298,7 +298,34 @@ footer {
     color: var(--primary-color);
     transform: translateY(-3px);
 }
+/* SQL Download Button */
+.sql-download-btn {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 100;
+  transition: var(--transition);
+}
 
+.sql-download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.sql-download-btn:active {
+  transform: translateY(1px);
+}
 /* Responsive Design */
 @media (max-width: 768px) {
     header h1 {
