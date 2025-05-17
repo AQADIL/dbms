@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz System - DBMS Masterpiece</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Animated background -->
+    <div class="particles" id="particles-js"></div>
+    
+    <!-- Floating language switcher -->
+    <div class="language-switcher floating">
+        <button id="lang-en" class="active pulse">
+            <i class="fas fa-globe"></i> EN
+        </button>
+        <button id="lang-ru" class="pulse">
+            <i class="fas fa-globe"></i> RU
+        </button>
+    </div>
+    
+    <!-- Glowing header -->
+    <header class="gradient-bg glow">
+        <div class="header-content">
+            <h1 id="main-title" class="text-pop">Online Quiz System</h1>
+            <p id="subtitle" class="fade-in">PostgreSQL Assignments Showcase</p>
+            <div class="sql-typing">
+                <span class="sql-command">SELECT</span>
+                <span class="sql-query">* FROM amazing_skills WHERE developer = 'AKADIL';</span>
+            </div>
+        </div>
+        <div class="header-wave"></div>
+    </header>
+
+    <!-- Main content -->
+    <div class="container">
+        <!-- Animated cards grid -->
+        <div class="assignment-grid">
+            <!-- Assignment 1 (PNG) -->
+            <div class="assignment-card neon-card" data-assignment="1" data-type="image">
+                <div class="card-icon bounce">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="card-title">Assignment 1</h3>
+                <p class="card-desc">ER Diagram</p>
+                <div class="card-glow"></div>
+            </div>
+            
+            <!-- Assignment 2 (PDF) -->
+            <div class="assignment-card neon-card" data-assignment="2" data-type="pdf">
+                <div class="card-icon bounce">
+                    <i class="fas fa-table"></i>
+                </div>
+                <h3 class="card-title">Assignment 2</h3>
+                <p class="card-desc">CREATE, INTER TABLE, ALTER TABLE</p>
+                <div class="card-glow"></div>
+            </div>
+            
+            <!-- More assignments... -->
+            
+            <!-- Presentation card (bigger) -->
+            <div class="assignment-card neon-card presentation-card" data-assignment="presentation" data-type="pdf">
+                <div class="card-icon jump">
+                    <i class="fas fa-presentation"></i>
+                </div>
+                <h3 class="card-title">Final Presentation</h3>
+                <p class="card-desc">Complete Project Showcase</p>
+                <div class="card-glow"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PDF Viewer (SIMPLE VERSION - UNCHANGED MECHANISM) -->
+    <div class="assignment-viewer" id="viewer">
+        <div class="viewer-header glass">
+            <h2 id="viewer-title" class="viewer-text">Assignment Viewer</h2>
+            <button class="close-btn floating-btn" id="close-viewer">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="viewer-content glass">
+            <div class="document-container">
+                <iframe id="pdf-viewer" style="display: none;"></iframe>
+                <img id="image-viewer" style="display: none;" alt="Assignment Image">
+            </div>
+        </div>
+    </div>
+
+    <!-- Reflection section with animated border -->
+    <div class="reflection-section gradient-bg">
+        <div class="container">
+            <div class="reflection-wrapper">
+                <div class="animated-border">
+                    <h2 id="reflection-title" class="section-title">My SQL Journey</h2>
+                    <div class="reflection-content glass">
+                        <p id="reflection-text-1">During my work on SQL assignments...</p>
+                        <p id="reflection-text-2">Each assignment gave me new knowledge...</p>
+                        <p id="reflection-text-3">These 6 assignments helped me...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section-wave"></div>
+    </div>
+
+    <!-- Creator showcase -->
+    <div class="creator-section">
+        <div class="creator-card glass">
+            <div class="creator-photo">
+                <img src="creator.jpg" alt="Sagacious AKADIL">
+                <div class="photo-frame"></div>
+                <div class="photo-shine"></div>
+            </div>
+            <div class="creator-info">
+                <h3 class="creator-name">Sagacious AKADIL</h3>
+                <p class="creator-title">Database Wizard & Full-Stack Developer</p>
+                <p id="reflection-text-4" class="creator-message">THANK YOU 😊</p>
+                <div class="creator-signature">
+                    <span>SELECT * FROM awesomeness;</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Animated footer -->
+    <footer class="footer">
+        <div class="footer-content glass">
+            <p class="footer-text">© 2025 Online Quiz System | Alish Akadil</p>
+            <div class="social-links">
+                <a href="https://github.com/AQADIL" class="social-icon spin">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://wa.me/77762349535" class="social-icon spin">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/aqdlsh/" class="social-icon spin">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-wave"></div>
+    </footer>
+
+    <!-- Confetti celebration -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
