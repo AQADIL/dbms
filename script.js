@@ -1,79 +1,55 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize particles.js
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 80, density: { enable: true, value_area: 800 } },
-            color: { value: "#ffffff" },
-            shape: { type: "circle" },
-            opacity: { value: 0.5, random: true },
-            size: { value: 3, random: true },
-            line_linked: { 
-                enable: true, 
-                distance: 150, 
-                color: "#ffffff", 
-                opacity: 0.2, 
-                width: 1 
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: "none",
-                random: true,
-                straight: false,
-                out_mode: "out",
-                bounce: false
-            }
-        },
-        interactivity: {
-            detect_on: "canvas",
-            events: {
-                onhover: { enable: true, mode: "grab" },
-                onclick: { enable: true, mode: "push" }
-            }
-        }
-    });
-
     // Language switching
-    const setLanguage = (lang) => {
-        const texts = {
-            en: {
-                mainTitle: "Online Quiz System - DBMS Mastery",
-                subtitle: "PostgreSQL Assignments Showcase",
-                reflectionTitle: "My SQL Journey Reflection",
-                reflectionText1: "During my work on SQL assignments...",
-                reflectionText2: "Each assignment gave me new knowledge...",
-                reflectionText3: "These 6 assignments helped me...",
-                reflectionText4: "THANK YOU 😊",
-                viewerTitle: "Assignment Viewer"
-            },
-            ru: {
-                mainTitle: "Online Quiz System - Путешествие в DBMS",
-                subtitle: "Демонстрация заданий PostgreSQL",
-                reflectionTitle: "Размышления о моём SQL-путешествии",
-                reflectionText1: "В ходе работы над заданиями по SQL...",
-                reflectionText2: "Каждое из заданий дало мне...",
-                reflectionText3: "Эти 6 заданий помогли мне...",
-                reflectionText4: "СПАСИБО ВАМ 😊",
-                viewerTitle: "Просмотр задания"
-            }
-        };
-
-        Object.entries(texts[lang]).forEach(([id, text]) => {
-            const el = document.getElementById(id);
-            if (el) el.textContent = text;
-        });
-
-        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
-        document.getElementById('lang-ru').classList.toggle('active', lang === 'ru');
+    const langEn = document.getElementById('lang-en');
+    const langRu = document.getElementById('lang-ru');
+    
+    const englishText = {
+        mainTitle: "Online Quiz System - DBMS Journey",
+        subtitle: "PostgreSQL Assignments Showcase",
+        reflectionTitle: "My SQL Journey Reflection",
+        reflectionText1: "During my work on SQL assignments, I consistently completed 7 tasks, each of which expanded my skills in working with relational databases and queries in PostgreSQL. The first task involved using aggregate functions to analyze the maximum score by quiz difficulty levels. I particularly enjoyed using GROUP BY and ROUND, as well as sorting by descending average value - this allowed me to quickly determine how \"generous\" quizzes of different levels were.",
+        reflectionText2: "Each assignment gave me new knowledge and pleasure from building competent, readable and efficient SQL queries. It was especially pleasant to format queries with explanations, turning code into a tool for data analysis and management.",
+        reflectionText3: "These 6 assignments helped me comprehend the wisdom and features of working with databases. And I can confidently say that I'm already ready to work with large-scale projects.",
+        reflectionText4: "THANK YOU 😊<br>p/s<br>Sagacious AKADIL",
+        viewerTitle: "Assignment Viewer"
     };
-
-    document.getElementById('lang-en').addEventListener('click', () => setLanguage('en'));
-    document.getElementById('lang-ru').addEventListener('click', () => setLanguage('ru'));
-
-    // PDF Viewer (SIMPLE VERSION)
+    
+    const russianText = {
+        mainTitle: "Online Quiz System - Путешествие в DBMS",
+        subtitle: "Демонстрация заданий PostgreSQL",
+        reflectionTitle: "Размышления о моём SQL-путешествии",
+        reflectionText1: "В ходе работы над заданиями по SQL, я последовательно выполнил 7 задач, каждая из которых расширила мои навыки работы с реляционными базами данных и запросами в PostgreSQL. Первое задание включало использование агрегатных функций для анализа максимального балла по уровням сложности тестов. Мне особенно понравилось использовать GROUP BY и ROUND, а также сортировку по убыванию среднего значения - это позволило быстро определить, насколько \"щедрыми\" были тесты разных уровней.",
+        reflectionText2: "Каждое задание давало мне новые знания и удовольствие от построения грамотных, читаемых и эффективных SQL-запросов. Особенно приятно было форматировать запросы с пояснениями, превращая код в инструмент анализа и управления данными.",
+        reflectionText3: "Эти 6 заданий помогли мне постичь мудрость и особенности работы с базами данных. И я могу уверенно сказать, что уже готов работать с крупномасштабными проектами.",
+        reflectionText4: "СПАСИБО ВАМ 😊<br>p/s<br>Мудрый AKADIL",
+        viewerTitle: "Просмотр задания"
+    };
+    
+    function setLanguage(lang) {
+        const texts = lang === 'en' ? englishText : russianText;
+        
+        document.getElementById('main-title').textContent = texts.mainTitle;
+        document.getElementById('subtitle').textContent = texts.subtitle;
+        document.getElementById('reflection-title').textContent = texts.reflectionTitle;
+        document.getElementById('reflection-text-1').innerHTML = texts.reflectionText1;
+        document.getElementById('reflection-text-2').innerHTML = texts.reflectionText2;
+        document.getElementById('reflection-text-3').innerHTML = texts.reflectionText3;
+        document.getElementById('reflection-text-4').innerHTML = texts.reflectionText4;
+        document.getElementById('viewer-title').textContent = texts.viewerTitle;
+        
+        langEn.classList.toggle('active', lang === 'en');
+        langRu.classList.toggle('active', lang === 'ru');
+    }
+    
+    langEn.addEventListener('click', () => setLanguage('en'));
+    langRu.addEventListener('click', () => setLanguage('ru'));
+    
+    // Assignment viewer
     const assignmentCards = document.querySelectorAll('.assignment-card');
     const assignmentViewer = document.getElementById('viewer');
     const closeViewer = document.getElementById('close-viewer');
+    const fullscreenBtn = document.getElementById('fullscreen');
+    const downloadBtn = document.getElementById('download');
     const pdfViewer = document.getElementById('pdf-viewer');
     const imageViewer = document.getElementById('image-viewer');
     
@@ -94,85 +70,75 @@ document.addEventListener('DOMContentLoaded', function() {
             
             assignmentViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Small celebration
-            confetti({
-                particleCount: 50,
-                spread: 70,
-                origin: { y: 0.6 }
-            });
         });
     });
     
-    closeViewer.addEventListener('click', () => {
+    closeViewer.addEventListener('click', function() {
         assignmentViewer.classList.remove('active');
         document.body.style.overflow = 'auto';
     });
     
-    assignmentViewer.addEventListener('click', (e) => {
-        if (e.target === assignmentViewer) closeViewer.click();
+    // Fullscreen functionality
+    fullscreenBtn.addEventListener('click', function() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            }
+        }
     });
-
-    // Theme switcher with animation
+    
+    // Download functionality
+    downloadBtn.addEventListener('click', function() {
+        const currentSrc = pdfViewer.style.display !== 'none' ? pdfViewer.src : imageViewer.src;
+        if (currentSrc) {
+            const link = document.createElement('a');
+            link.href = currentSrc;
+            link.download = currentSrc.split('/').pop();
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    });
+    
+    // Close viewer when clicking outside content
+    assignmentViewer.addEventListener('click', function(e) {
+        if (e.target === assignmentViewer) {
+            closeViewer.click();
+        }
+    });
+    
+    // Theme switcher
     const themeToggle = document.createElement('div');
-    themeToggle.className = 'theme-toggle floating-btn';
+    themeToggle.className = 'theme-toggle';
     themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    themeToggle.addEventListener('click', () => {
-        const isDark = document.documentElement.hasAttribute('data-theme');
-        
-        if (isDark) {
+    themeToggle.style.position = 'fixed';
+    themeToggle.style.bottom = '20px';
+    themeToggle.style.right = '20px';
+    themeToggle.style.backgroundColor = 'var(--primary-color)';
+    themeToggle.style.color = 'white';
+    themeToggle.style.width = '50px';
+    themeToggle.style.height = '50px';
+    themeToggle.style.borderRadius = '50%';
+    themeToggle.style.display = 'flex';
+    themeToggle.style.alignItems = 'center';
+    themeToggle.style.justifyContent = 'center';
+    themeToggle.style.cursor = 'pointer';
+    themeToggle.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
+    themeToggle.style.zIndex = '100';
+    document.body.appendChild(themeToggle);
+    
+    themeToggle.addEventListener('click', function() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
             document.documentElement.removeAttribute('data-theme');
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-        }
-        
-        themeToggle.animate([
-            { transform: 'scale(1)' },
-            { transform: 'scale(1.2)' },
-            { transform: 'scale(1)' }
-        ], { duration: 300 });
-    });
-    document.body.appendChild(themeToggle);
-
-    // Add hover effects to cards
-    assignmentCards.forEach(card => {
-        card.addEventListener('mouseenter', () => {
-            card.style.transform = 'translateY(-10px)';
-            card.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.3)';
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = '';
-            card.style.boxShadow = '';
-        });
-    });
-
-    // Easter egg - Konami code
-    const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    let konamiIndex = 0;
-    
-    document.addEventListener('keydown', (e) => {
-        if (e.key === konamiCode[konamiIndex]) {
-            konamiIndex++;
-            
-            if (konamiIndex === konamiCode.length) {
-                // Massive celebration
-                for (let i = 0; i < 5; i++) {
-                    setTimeout(() => {
-                        confetti({
-                            particleCount: 150,
-                            spread: 100,
-                            origin: { y: 0.6 }
-                        });
-                    }, i * 300);
-                }
-                
-                konamiIndex = 0;
-            }
-        } else {
-            konamiIndex = 0;
         }
     });
 });
