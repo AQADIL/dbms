@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Online Quiz System | DBMS</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <!-- Enhanced PDF Viewer -->
+    <!-- Enhanced PDF Viewer with Mobile Support -->
     <div class="assignment-viewer" id="viewer">
         <div class="viewer-header">
             <h2 id="viewer-title">Assignment Viewer</h2>
@@ -98,6 +98,10 @@
             <div class="document-container">
                 <iframe id="pdf-viewer" style="display: none;"></iframe>
                 <img id="image-viewer" style="display: none;" alt="Assignment Image">
+            </div>
+            <div class="mobile-controls">
+                <button class="zoom-btn" id="zoom-in"><i class="fas fa-search-plus"></i></button>
+                <button class="zoom-btn" id="zoom-out"><i class="fas fa-search-minus"></i></button>
             </div>
         </div>
     </div>
@@ -125,9 +129,15 @@
             <a href="https://www.instagram.com/aqdlsh/"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
+    
     <button class="sql-download-btn" id="downloadSql">
-  <i class="fas fa-download"></i> Download SQL
-</button>
+        <i class="fas fa-download"></i> Download SQL
+    </button>
+    
+    <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
