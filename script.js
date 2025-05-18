@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const downloadBtn = document.getElementById('download');
     const pdfViewer = document.getElementById('pdf-viewer');
     const imageViewer = document.getElementById('image-viewer');
+    const zoomInBtn = document.getElementById('zoom-in');
+    const zoomOutBtn = document.getElementById('zoom-out');
+    
+    let currentScale = 1;
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const isLargeMobile = isMobile && (window.screen.width >= 414 || window.screen.height >= 896);
     
     assignmentCards.forEach(card => {
         card.addEventListener('click', function() {
@@ -66,16 +72,40 @@ document.addEventListener('DOMContentLoaded', function() {
                 pdfViewer.src = `ass${assignmentNum}.pdf#toolbar=0&navpanes=0&scrollbar=0`;
                 pdfViewer.style.display = 'block';
                 imageViewer.style.display = 'none';
+                currentScale = 1;
             }
             
             assignmentViewer.classList.add('active');
             document.body.style.overflow = 'hidden';
+            
+            if (isLargeMobile) {
+                document.querySelector('.viewer-header h2').style.display = 'none';
+                document.querySelector('.viewer-content').style.paddingTop = '60px';
+            }
         });
+    });
+    
+    // Zoom functionality for mobile
+    zoomInBtn?.addEventListener('click', function() {
+        currentScale += 0.25;
+        pdfViewer.style.transform = `scale(${currentScale})`;
+    });
+    
+    zoomOutBtn?.addEventListener('click', function() {
+        if (currentScale > 0.5) {
+            currentScale -= 0.25;
+            pdfViewer.style.transform = `scale(${currentScale})`;
+        }
     });
     
     closeViewer.addEventListener('click', function() {
         assignmentViewer.classList.remove('active');
         document.body.style.overflow = 'auto';
+        pdfViewer.style.transform = 'scale(1)';
+        if (isLargeMobile) {
+            document.querySelector('.viewer-header h2').style.display = 'block';
+            document.querySelector('.viewer-content').style.paddingTop = '0';
+        }
     });
     
     // Fullscreen functionality
@@ -112,24 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Theme switcher
-    const themeToggle = document.createElement('div');
-    themeToggle.className = 'theme-toggle';
-    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-    themeToggle.style.position = 'fixed';
-    themeToggle.style.bottom = '20px';
-    themeToggle.style.right = '20px';
-    themeToggle.style.backgroundColor = 'var(--primary-color)';
-    themeToggle.style.color = 'white';
-    themeToggle.style.width = '50px';
-    themeToggle.style.height = '50px';
-    themeToggle.style.borderRadius = '50%';
-    themeToggle.style.display = 'flex';
-    themeToggle.style.alignItems = 'center';
-    themeToggle.style.justifyContent = 'center';
-    themeToggle.style.cursor = 'pointer';
-    themeToggle.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.2)';
-    themeToggle.style.zIndex = '100';
-    document.body.appendChild(themeToggle);
+    const themeToggle = document.getElementById('themeToggle');
     
     themeToggle.addEventListener('click', function() {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -141,27 +154,34 @@ document.addEventListener('DOMContentLoaded', function() {
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
     });
-});
-// SQL Download Functionality
-document.getElementById('downloadSql').addEventListener('click', function() {
-  // Create temporary link
-  const link = document.createElement('a');
-  
-  // Set the SQL file path (change 'database.sql' to your actual filename)
-  link.href = 'akadildb.sql';
-  
-  // Set the download filename
-  link.download = 'akadildb.sql';
-  
-  // Trigger download
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-  
-  // Visual feedback
-  const btn = this;
-  btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
-  setTimeout(() => {
-    btn.innerHTML = '<i class="fas fa-download"></i> Download SQL';
-  }, 2000);
+    
+    // SQL Download Functionality
+    document.getElementById('downloadSql').addEventListener('click', function() {
+        const link = document.createElement('a');
+        link.href = 'akadildb.sql';
+        link.download = 'akadildb.sql';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        const btn = this;
+        btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-download"></i> Download SQL';
+        }, 2000);
+    });
+    
+    // Mobile swipe to close
+    if (isMobile) {
+        let startY;
+        assignmentViewer.addEventListener('touchstart', (e) => {
+            startY = e.touches[0].clientY;
+        }, { passive: true });
+        
+        assignmentViewer.addEventListener('touchmove', (e) => {
+            if (startY - e.touches[0].clientY > 100) {
+                closeViewer.click();
+            }
+        }, { passive: true });
+    }
 });
